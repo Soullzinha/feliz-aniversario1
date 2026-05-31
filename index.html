@@ -1,166 +1,199 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Feliz Aniversário ❤️</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-body{
-    background:linear-gradient(135deg,#ff5f9e,#ff9ac6);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow-x:hidden;
-}
-
-.container{
-    width:90%;
-    max-width:800px;
-    background:white;
-    padding:40px;
-    border-radius:25px;
-    box-shadow:0 0 30px rgba(0,0,0,.2);
-    text-align:center;
-}
-
-h1{
-    color:#ff2f7a;
-    margin-bottom:20px;
-}
-
-.subtitle{
-    margin-bottom:25px;
-    color:#666;
-}
-
-.heart{
-    position:fixed;
-    color:white;
-    animation:float 10s linear infinite;
-    font-size:20px;
-    z-index:-1;
-}
-
-@keyframes float{
-    from{
-        transform:translateY(100vh);
-    }
-    to{
-        transform:translateY(-100px);
-    }
-}
-
-.message{
-    text-align:left;
-    line-height:1.8;
-    margin-top:20px;
-    color:#444;
-}
-
-.btn{
-    display:inline-block;
-    margin-top:30px;
-    padding:15px 30px;
-    background:#ff2f7a;
-    color:white;
-    text-decoration:none;
-    border-radius:999px;
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:scale(1.05);
-}
-
-.footer{
-    margin-top:30px;
-    color:#777;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Maria Clara ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <canvas id="starryCanvas"></canvas>
 
-<div class="container">
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-beautiful-dream-493.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+    <div id="musicPlayer" class="hidden">
+        <div class="player-info">
+            <span class="music-icon">🎵</span>
+            <div class="music-details">
+                <span id="songTitle">Trilha Sonora da Clara</span>
+                <span class="music-status">Tocando agora...</span>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button id="btnPlayPause">⏸</button>
+        </div>
+    </div>
 
-<h1>❤️ Feliz Aniversário ❤️</h1>
+    <section id="intro" class="fullscreen-section">
+        <div class="intro-content">
+            <h1 class="fade-text" id="introText1">Hoje é um dia especial.</h1>
+            <h1 class="fade-text hidden" id="introText2">Porque há exatamente 20 anos...</h1>
+            <h1 class="fade-text hidden" id="introText3">O mundo ganhou alguém incrível.</h1>
+            <h1 class="fade-text hidden highlight-name" id="introText4">Maria Clara ❤️</h1>
+            <p class="fade-text hidden subtitle" id="introText5">Esta surpresa foi feita para você.</p>
+            <button id="startBtn" class="fade-text hidden btn-glow">Começar</button>
+        </div>
+    </section>
 
-<p class="subtitle">
-Parabéns pelos seus 20 anos ✨
-</p>
+    <main id="mainContent" class="hidden">
+        
+        <section class="content-section" id="quem-e">
+            <div class="container">
+                <h2 class="section-title reveal">Quem é a Clara?</h2>
+                <div class="cards-grid">
+                    <div class="glass-card reveal">✨ Seu coração bondoso</div>
+                    <div class="glass-card reveal">✨ Seu sorriso que ilumina</div>
+                    <div class="glass-card reveal">✨ Seu jeito de ajudar as pessoas</div>
+                    <div class="glass-card reveal">✨ Sua alegria contagiante</div>
+                    <div class="glass-card reveal">✨ Seu cabelo cacheado lindo</div>
+                    <div class="glass-card reveal">✨ Seu amor imenso pelos livros</div>
+                    <div class="glass-card reveal">✨ Seu jeito lindo de cantar e dançar</div>
+                    <div class="glass-card reveal">✨ O dom de deixar os ambientes mais leves</div>
+                </div>
+            </div>
+        </section>
 
-<div class="message">
+        <section class="content-section" id="vinte-coisas">
+            <div class="container">
+                <h2 class="section-title reveal">20 Coisas Incríveis Sobre Você</h2>
+                <div class="grid-20 reveal">
+                    <div class="glass-item">1. Seu sorriso</div>
+                    <div class="glass-item">2. Seu coração</div>
+                    <div class="glass-item">3. Sua generosidade</div>
+                    <div class="glass-item">4. Sua inteligência</div>
+                    <div class="glass-item">5. Seu humor</div>
+                    <div class="glass-item">6. Seu jeito de ouvir</div>
+                    <div class="glass-item">7. Seu jeito de cantar</div>
+                    <div class="glass-item">8. Seu jeito de dançar</div>
+                    <div class="glass-item">9. Seu amor pelos livros</div>
+                    <div class="glass-item">10. Sua criatividade</div>
+                    <div class="glass-item">11. Sua força</div>
+                    <div class="glass-item">12. Seu carinho</div>
+                    <div class="glass-item">13. Sua sinceridade</div>
+                    <div class="glass-item">14. Seu cabelo cacheado</div>
+                    <div class="glass-item">15. Sua energia</div>
+                    <div class="glass-item">16. Sua empatia</div>
+                    <div class="glass-item">17. Seu companheirismo</div>
+                    <div class="glass-item">18. Sua autenticidade</div>
+                    <div class="glass-item">19. Sua alegria</div>
+                    <div class="glass-item highlight-item">20. O seu jeito de ser você</div>
+                </div>
+            </div>
+        </section>
 
-<p>
-Hoje é um dia muito especial, porque o mundo ganhou você há exatamente 20 anos.
-</p>
+        <section class="content-section cinematic-section" id="vinte-anos">
+            <div class="cinematic-overlay"></div>
+            <div class="container relative z-10 text-center">
+                <h2 class="cinematic-title reveal">20 Anos</h2>
+                <div class="timeline">
+                    <p class="reveal delay-1">20 anos de histórias.</p>
+                    <p class="reveal delay-2">20 anos de crescimento.</p>
+                    <p class="reveal delay-3">20 anos de sonhos.</p>
+                    <p class="reveal delay-4">20 anos aprendendo.</p>
+                    <p class="reveal delay-5">20 anos espalhando alegria.</p>
+                    <p class="reveal delay-6 highlight-gold">20 anos sendo uma pessoa incrível.</p>
+                </div>
+            </div>
+        </section>
 
-<br>
+        <section class="content-section" id="trilha-sonora">
+            <div class="container">
+                <h2 class="section-title reveal">As músicas que lembram você ❤️</h2>
+                
+                <div class="music-area reveal">
+                    <h3>Suas artistas favoritas</h3>
+                    <div class="music-cards">
+                        <a href="https://youtu.be/sB2gvFWEuco" target="_blank" class="music-card glass-card">
+                            <div class="artist-name">Carol Biazin</div>
+                            <div class="song-sub">um amor calmo</div>
+                        </a>
+                        <a href="https://youtu.be/VruhnfT6meQ" target="_blank" class="music-card glass-card">
+                            <div class="artist-name">Adele</div>
+                            <div class="song-sub">Make You Feel My Love</div>
+                        </a>
+                        <a href="https://youtu.be/uBlZ6hlo4X0" target="_blank" class="music-card glass-card">
+                            <div class="artist-name">Beyoncé</div>
+                            <div class="song-sub">Dangerously In Love</div>
+                        </a>
+                    </div>
+                </div>
 
-<p>
-Obrigado por todas as conversas, pelos momentos compartilhados e por ser essa pessoa incrível.
-</p>
+                <div class="music-area reveal">
+                    <h3>Músicas que combinam com você</h3>
+                    <div class="music-cards">
+                        <a href="https://youtu.be/EUklpPBk3n0" target="_blank" class="music-card glass-card">
+                            <div class="artist-name">Michael Jackson</div>
+                            <div class="song-sub">Todo Mi Amor Eres Tu</div>
+                        </a>
+                        <a href="https://youtu.be/2-ds8k0UFjA" target="_blank" class="music-card glass-card">
+                            <div class="artist-name">Extra</div>
+                            <div class="song-sub">Sua Vibe</div>
+                        </a>
+                    </div>
+                </div>
 
-<br>
+                <div class="music-area reveal">
+                    <h3>Nossa trilha sonora ❤️</h3>
+                    <div class="music-cards grid-mini">
+                        <a href="https://youtu.be/lBDDMrUCz1A" target="_blank" class="mini-music-card glass-card">▶ Trilha 1</a>
+                        <a href="https://youtu.be/PfH7jq_uSCM" target="_blank" class="mini-music-card glass-card">▶ Trilha 2</a>
+                        <a href="https://youtu.be/0dRRMfDTzJ0" target="_blank" class="mini-music-card glass-card">▶ Trilha 3</a>
+                        <a href="https://youtu.be/RytrevkteVs" target="_blank" class="mini-music-card glass-card">▶ Trilha 4</a>
+                        <a href="https://youtu.be/TwSTanAYjZ0" target="_blank" class="mini-music-card glass-card">▶ Trilha 5</a>
+                        <a href="https://youtu.be/ETpU0obvKrY" target="_blank" class="mini-music-card glass-card">▶ Trilha 6</a>
+                        <a href="https://youtu.be/2GIQ_aK8v48" target="_blank" class="mini-music-card glass-card">▶ Trilha 7</a>
+                        <a href="https://youtu.be/dTS_aNfpbIM" target="_blank" class="mini-music-card glass-card">▶ Trilha 8</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<p>
-Espero que este novo ciclo seja cheio de felicidade, saúde, conquistas e sonhos realizados.
-</p>
+        <section class="content-section" id="memorias">
+            <div class="container text-center">
+                <h2 class="section-title reveal">Memórias Futuras</h2>
+                <div class="frames-gallery reveal">
+                    <div class="empty-frame"></div>
+                    <div class="empty-frame"></div>
+                    <div class="empty-frame"></div>
+                    <div class="empty-frame"></div>
+                </div>
+                <p class="future-text reveal">Em breve este espaço será preenchido com ainda mais momentos especiais ❤️</p>
+            </div>
+        </section>
 
-<br>
+        <section class="content-section" id="carta">
+            <div class="container">
+                <div class="letter-container reveal" id="letterBox">
+                    <div id="typewriterText" class="letter-text"></div>
+                    <p class="hidden letter-dates" id="datesText">
+                        Lembranças de quem sabe a sorte que tem:<br>
+                        <span class="date">22/12/2025</span> - O dia que minha vida mudou para melhor.<br>
+                        <span class="date">17/05/2026</span> - O "sim" que eu guardo no coração.
+                    </p>
+                </div>
+            </div>
+        </section>
 
-<p>
-Mesmo que eu não tenha o presente perfeito, queria fazer algo que mostrasse o quanto você é especial para mim.
-</p>
+        <section class="content-section text-center" id="final">
+            <div class="container">
+                <button id="finalSurpriseBtn" class="btn-glow reveal">Uma última surpresa</button>
+            </div>
+        </section>
+    </main>
 
-<br>
+    <div id="finalScreen" class="hidden">
+        <canvas id="fireworksCanvas"></canvas>
+        <div class="final-messages">
+            <h1 class="final-text" id="fText1">Feliz aniversário, Clara ❤️</h1>
+            <h2 class="final-text hidden" id="fText2">Que seus 20 anos sejam tão lindos quanto o seu coração.</h2>
+            <h2 class="final-text hidden" id="fText3">Você merece tudo de melhor que a vida pode oferecer.</h2>
+            <h1 class="final-text hidden highlight-name" id="fText4">Obrigado por existir.</h1>
+        </div>
+    </div>
 
-<p>
-Aproveite muito o seu dia. Você merece tudo de melhor. ❤️
-</p>
-
-</div>
-
-<a class="btn"
-href="https://www.youtube.com/watch?v=pAyKJAtDNCw"
-target="_blank">
-🎵 Clique para ouvir sua surpresa
-</a>
-
-<div class="footer">
-<br>
-Com carinho ❤️
-</div>
-
-</div>
-
-<script>
-
-for(let i=0;i<40;i++){
-
-let heart=document.createElement("div");
-
-heart.innerHTML="❤️";
-heart.classList.add("heart");
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(5+Math.random()*8)+"s";
-heart.style.fontSize=(15+Math.random()*25)+"px";
-
-document.body.appendChild(heart);
-
-}
-
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
