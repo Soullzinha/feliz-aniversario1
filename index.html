@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Aniversário ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff5f9e,#ff9ac6);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:hidden;
+}
+
+.container{
+    width:90%;
+    max-width:800px;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 30px rgba(0,0,0,.2);
+    text-align:center;
+}
+
+h1{
+    color:#ff2f7a;
+    margin-bottom:20px;
+}
+
+.subtitle{
+    margin-bottom:25px;
+    color:#666;
+}
+
+.heart{
+    position:fixed;
+    color:white;
+    animation:float 10s linear infinite;
+    font-size:20px;
+    z-index:-1;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+    }
+    to{
+        transform:translateY(-100px);
+    }
+}
+
+.message{
+    text-align:left;
+    line-height:1.8;
+    margin-top:20px;
+    color:#444;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:30px;
+    padding:15px 30px;
+    background:#ff2f7a;
+    color:white;
+    text-decoration:none;
+    border-radius:999px;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+.footer{
+    margin-top:30px;
+    color:#777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>❤️ Feliz Aniversário ❤️</h1>
+
+<p class="subtitle">
+Parabéns pelos seus 20 anos ✨
+</p>
+
+<div class="message">
+
+<p>
+Hoje é um dia muito especial, porque o mundo ganhou você há exatamente 20 anos.
+</p>
+
+<br>
+
+<p>
+Obrigado por todas as conversas, pelos momentos compartilhados e por ser essa pessoa incrível.
+</p>
+
+<br>
+
+<p>
+Espero que este novo ciclo seja cheio de felicidade, saúde, conquistas e sonhos realizados.
+</p>
+
+<br>
+
+<p>
+Mesmo que eu não tenha o presente perfeito, queria fazer algo que mostrasse o quanto você é especial para mim.
+</p>
+
+<br>
+
+<p>
+Aproveite muito o seu dia. Você merece tudo de melhor. ❤️
+</p>
+
+</div>
+
+<a class="btn"
+href="https://www.youtube.com/watch?v=pAyKJAtDNCw"
+target="_blank">
+🎵 Clique para ouvir sua surpresa
+</a>
+
+<div class="footer">
+<br>
+Com carinho ❤️
+</div>
+
+</div>
+
+<script>
+
+for(let i=0;i<40;i++){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+heart.classList.add("heart");
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*8)+"s";
+heart.style.fontSize=(15+Math.random()*25)+"px";
+
+document.body.appendChild(heart);
+
+}
+
+</script>
+
+</body>
+</html>
