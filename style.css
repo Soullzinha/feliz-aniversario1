@@ -1,3 +1,265 @@
+/* RESET & VARIÁVEIS PRINCIPAIS */
+:root {
+    --bg-dark: #0f172a;
+    --bg-deep: #1e1b4b;
+    --purple-elegant: #581c87;
+    --lilac-soft: #d8b4fe;
+    --white: #ffffff;
+    --gold-soft: #fcd34d;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-deep) 100%);
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+h1, h2, h3, .cinematic-title, .letter-text {
+    font-family: 'Playfair Display', serif;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* TELA DE ABERTURA */
+.fullscreen-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 20;
+}
+
+.fade-text {
+    font-size: 2rem;
+    margin: 15px 0;
+    opacity: 0;
+    animation: fadeInOut 4s forwards;
+}
+
+.highlight-name {
+    font-size: 3.5rem;
+    color: var(--gold-soft);
+    text-shadow: 0 0 20px rgba(252, 211, 77, 0.4);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--lilac-soft);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    20% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(0); } /* Mantém visível após animar */
+}
+
+.btn-glow {
+    background: linear-gradient(45deg, var(--purple-elegant), var(--lilac-soft));
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 30px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 20px rgba(216, 180, 254, 0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+.btn-glow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(216, 180, 254, 0.7);
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* MUSIC PLAYER ESTILO PREMIUM */
+#musicPlayer {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 10px 25px;
+    display: flex !important; /* Sobrescrito pelo JS via .hidden */
+    align-items: center;
+    gap: 20px;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    transition: opacity 0.5s;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.music-details {
+    display: flex;
+    flex-direction: column;
+}
+
+#songTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+.music-status {
+    font-size: 0.7rem;
+    color: var(--lilac-soft);
+}
+
+#btnPlayPause {
+    background: none;
+    border: none;
+    color: var(--gold-soft);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* SEÇÕES COMUNS */
+.content-section {
+    padding: 80px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: var(--lilac-soft);
+    text-shadow: 0 0 10px rgba(216, 180, 254, 0.2);
+}
+
+/* EFEITO GLASSMORPHISM */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-weight: 300;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(88, 28, 135, 0.3);
+    border-color: var(--lilac-soft);
+}
+
+/* SEÇÃO 1: CARDS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* SEÇÃO 2: 20 COISAS */
+.grid-20 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.glass-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 15px 10px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.highlight-item {
+    background: rgba(252, 211, 77, 0.1);
+    border-color: var(--gold-soft);
+    color: var(--gold-soft);
+    font-weight: 500;
+}
+
+/* SEÇÃO 3: 20 ANOS (Cinematográfica) */
+.cinematic-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.cinematic-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, var(--bg-dark) 100%);
+    z-index: 1;
+}
+
+.cinematic-title {
+    font-size: 5rem;
+    color: var(--gold-soft);
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.timeline p {
+    font-size: 1.5rem;
+    margin: 15px 0;
+    color: var(--lilac-soft);
+}
+
+.highlight-gold {
+    color: var(--gold-soft) !important;
+    font-size: 2rem !important;
+    margin-top: 30px !important;
+}
+
 /* SEÇÃO 4: MÚSICAS EMBUTIDAS */
 .music-area {
     margin-bottom: 60px;
@@ -38,4 +300,122 @@
     font-weight: 600;
     color: var(--gold-soft);
     margin-top: 5px;
+}
+
+/* SEÇÃO 5: MEMÓRIAS */
+.frames-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.empty-frame {
+    width: 150px;
+    height: 200px;
+    border: 2px dashed var(--glass-border);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.empty-frame::after {
+    content: "❤️";
+    opacity: 0.3;
+    font-size: 2rem;
+}
+
+.future-text {
+    font-style: italic;
+    color: var(--lilac-soft);
+}
+
+/* SEÇÃO 6: CARTA */
+.letter-container {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 50px;
+    border-radius: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.letter-text {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: var(--white);
+    white-space: pre-wrap;
+    min-height: 400px;
+}
+
+.letter-dates {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.4);
+    text-align: right;
+    font-family: 'Poppins', sans-serif;
+}
+
+.letter-dates .date {
+    color: var(--lilac-soft);
+}
+
+/* TELA FINAL */
+#finalScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-dark);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.final-messages {
+    position: relative;
+    z-index: 1001;
+    padding: 20px;
+}
+
+.final-text {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* ANIMAÇÕES GERAIS (ScrollReveal) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+.delay-4 { transition-delay: 0.8s; }
+.delay-5 { transition-delay: 1.0s; }
+.delay-6 { transition-delay: 1.2s; }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .highlight-name { font-size: 2.5rem; }
+    .cinematic-title { font-size: 3rem; }
+    .letter-container { padding: 30px 15px; }
+    .letter-text { font-size: 1.1rem; }
+    .final-text { font-size: 1.8rem; }
+    #musicPlayer { bottom: 10px; padding: 8px 20px; width: 90%; justify-content: space-between; }
 }
