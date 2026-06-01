@@ -47,38 +47,60 @@ document.addEventListener("DOMContentLoaded", () => {
     const t5 = document.getElementById('introText5');
     const startBtn = document.getElementById('startBtn');
 
-    setTimeout(() => { t2.classList.remove('hidden'); }, 3000);
-    setTimeout(() => { t3.classList.remove('hidden'); }, 6000);
-    setTimeout(() => { t4.classList.remove('hidden'); t5.classList.remove('hidden'); startBtn.classList.remove('hidden'); }, 9000);
+    setTimeout(() => { if(t2) t2.classList.remove('hidden'); }, 3000);
+    setTimeout(() => { if(t3) t3.classList.remove('hidden'); }, 6000);
+    setTimeout(() => { 
+        if(t4) t4.classList.remove('hidden'); 
+        if(t5) t5.classList.remove('hidden'); 
+        if(startBtn) startBtn.classList.remove('hidden'); 
+    }, 9000);
 
-    // 3. AÇÃO DO BOTÃO COMEÇAR
+    // 3. AÇÃO DO BOTÃO COMEÇAR E REPRODUÇÃO DA MÚSICA
     const bgMusic = document.getElementById('bgMusic');
     const intro = document.getElementById('intro');
     const mainContent = document.getElementById('mainContent');
     const musicPlayer = document.getElementById('musicPlayer');
+    const btnPlayPause = document.getElementById('btnPlayPause');
 
-    startBtn.addEventListener('click', () => {
-        intro.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        musicPlayer.classList.remove('hidden');
-        
-        // Tenta tocar a música de fundo geral
-        bgMusic.play().catch(e => console.log("Autoplay bloqueado pelo navegador, aguardando interação."));
-        
-        initScrollReveal();
-    });
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            intro.classList.add('hidden');
+            mainContent.classList.remove('hidden');
+            musicPlayer.classList.remove('hidden');
+            
+            // Toca o áudio local após a interação do utilizador
+            if (bgMusic) {
+                bgMusic.load();
+                setTimeout(() => {
+                    bgMusic.play()
+                        .then(() => {
+                            if(btnPlayPause) btnPlayPause.textContent = '⏸';
+                            console.log("Áudio iniciado com sucesso!");
+                        })
+                        .catch(e => {
+                            console.log("Erro ao tocar áudio. Tentando novamente...", e);
+                            bgMusic.muted = false;
+                            bgMusic.play();
+                        });
+                }, 100);
+            }
+            
+            initScrollReveal();
+        });
+    }
 
     // CONTROLES DO PLAYER FLUTUANTE
-    const btnPlayPause = document.getElementById('btnPlayPause');
-    btnPlayPause.addEventListener('click', () => {
-        if (bgMusic.paused) {
-            bgMusic.play();
-            btnPlayPause.textContent = '⏸';
-        } else {
-            bgMusic.pause();
-            btnPlayPause.textContent = '▶';
-        }
-    });
+    if (btnPlayPause && bgMusic) {
+        btnPlayPause.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                btnPlayPause.textContent = '⏸';
+            } else {
+                bgMusic.pause();
+                btnPlayPause.textContent = '▶';
+            }
+        });
+    }
 
     // 4. ANIMAÇÃO AO ROLAR A PÁGINA (SCROLL REVEAL MANUAL)
     function initScrollReveal() {
@@ -104,10 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 5. EFEITO MÁQUINA DE ESCREVER (CARTA)
-    const letterText = "Clara,\n\nHoje você celebra um marco lindo e muito especial: os seus 20 anos.\nEscrevo este pequeno espaço para te lembrar do quanto você é incrível. O seu sorriso tem um poder único de transformar qualquer dia cinzento, e o seu coração gigante inspira todos que têm a sorte de estar por perto.\n\nAdmiro seu amor imenso pelos livros, a forma linda como você dança e canta, a beleza do seu cabelo cacheado e o dom natural de deixar qualquer ambiente mais leve.\n\nQue este novo ciclo traga sorrisos infinitos, histórias maravilhas e a certeza de que você merece tudo de melhor que o mundo tem a oferecer. Parabéns! ❤️";
+    const letterText = "Clara,\n\nHoje é um dia inteiramente seu. Enquanto planejava isso, fiquei pensando em quantas palavras seriam necessárias para descrever a imensidão que é você. A verdade é que nenhuma palavra parece suficiente.\n\nVocê tem esse jeito único de fazer os ambientes ficarem mais leves. Tem um coração tão bondoso, que cuida de todo mundo ao redor, sempre com esse sorriso lindo e acolhedor no rosto. Eu admiro profundamente a sua inteligência, a sua força e a forma genuína como você ajuda as pessoas.\n\nVer você imersa em seus livros, ou simplesmente sendo você mesma – cantando, dançando, jogando e espalhando alegria – é um dos meus maiores privilégios. Esta surpresa foi criada com muitas horas de dedicação, pensando em cada detalhe, no seu cabelo cacheado, na sua cor favorita e no seu sorriso, apenas para que você sinta pelo menos uma fração do quanto é admirada e valorizada.\n\nHoje, celebramos 20 anos de uma trajetória linda. Uma história da qual tenho muito orgulho de acompanhar de perto.\n\nFeliz aniversário, Clara.\nObrigado por ser exatamente quem você é.\n\nCom todo meu amor,\nUanderson ❤️";
 
     function startTypewriter() {
         const txtElem = document.getElementById('typewriterText');
+        if(!txtElem) return;
         let i = 0;
         function type() {
             if (i < letterText.length) {
@@ -115,7 +138,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 i++;
                 setTimeout(type, 35); // Velocidade da digitação
             } else {
-                document.getElementById('datesText').classList.remove('hidden');
+                const datesText = document.getElementById('datesText');
+                if(datesText) datesText.classList.remove('hidden');
             }
         }
         type();
@@ -125,24 +149,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const finalSurpriseBtn = document.getElementById('finalSurpriseBtn');
     const finalScreen = document.getElementById('finalScreen');
     
-    finalSurpriseBtn.addEventListener('click', () => {
-        mainContent.classList.add('hidden');
-        musicPlayer.classList.add('hidden');
-        finalScreen.classList.remove('hidden');
-        
-        // Para a música de fundo para não misturar com a comemoração
-        bgMusic.pause();
-        
-        startFireworks();
+    if (finalSurpriseBtn) {
+        finalSurpriseBtn.addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            musicPlayer.classList.add('hidden');
+            finalScreen.classList.remove('hidden');
+            
+            // Para a música de fundo para não misturar com a comemoração
+            if (bgMusic) bgMusic.pause();
+            
+            startFireworks();
 
-        // Mostra mensagens finais graduais
-        setTimeout(() => document.getElementById('fText2').classList.remove('hidden'), 3000);
-        setTimeout(() => document.getElementById('fText3').classList.remove('hidden'), 6000);
-        setTimeout(() => document.getElementById('fText4').classList.remove('hidden'), 9000);
-    });
+            // Mostra mensagens finais graduais
+            setTimeout(() => { const f = document.getElementById('fText2'); if(f) f.classList.remove('hidden'); }, 3000);
+            setTimeout(() => { const f = document.getElementById('fText3'); if(f) f.classList.remove('hidden'); }, 6000);
+            setTimeout(() => { const f = document.getElementById('fText4'); if(f) f.classList.remove('hidden'); }, 9000);
+        });
+    }
 
     function startFireworks() {
         const fCanvas = document.getElementById('fireworksCanvas');
+        if(!fCanvas) return;
         const fCtx = fCanvas.getContext('2d');
         fCanvas.width = window.innerWidth;
         fCanvas.height = window.innerHeight;
@@ -195,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Intervalo de surgimento dos fogos
-        const fireworkTimer = setInterval(spawnFirework, 700);
+        setInterval(spawnFirework, 700);
 
         function animate() {
             fCtx.fillStyle = 'rgba(15, 23, 42, 0.2)'; // Rastro preto azulado
